@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Farmly</title>
+  <link rel="stylesheet" href="user.css" />
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="farmly-header">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="logo">farmly</div>
+    <div class="delivery">
+  <span class="time">Build On Trust</span>
+
+  <div class="location-wrapper">
+    <span class="location" id="locationText">Select location ▼</span>
+
+    <div class="location-dropdown" id="locationDropdown">
+      <button class="loc-option" id="currentLocationBtn">
+        📍 Allow current location
+      </button>
+
+      <button class="loc-option" id="manualAddressBtn">
+        🏠 Add / Edit your address
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+    </div>
+  </div>
+
+  <!-- CENTER SEARCH -->
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder='Search "rice"' />
+      <div class="search-suggestions" id="suggestions"></div>
+    </div>
+    <!-- <input type="text" placeholder='Search "rice"' /> -->
+
+    <div class="image-search-wrapper">
+      <span class="image-search" id="imageSearchBtn">🖼️</span>
+
+      <div class="image-dropdown" id="imageDropdown">
+        <button class="img-option" id="uploadBtn">📤 Upload product image</button>
+        <button class="img-option" id="cameraBtn">📸 Click product image</button>
+      </div>
+    </div>
+
+    <!-- Hidden inputs -->
+    <input type="file" id="uploadInput" accept="image/*" hidden />
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden />
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="account-dropdown">
+      <div class="account" id="accountBtn">Account ▼</div>
+
+      <div class="dropdown-menu" id="accountMenu">
+        <div class="dropdown-title">User Dashboard</div>
+        <a href="profile.html"> 👤 My Profile</a>
+        <a href="cart.html">❤️ My Wishlist</a>
+        <a href="orders.html">🚚 Orders</a>
+         <a href="address.html">📍 Location & Address</a>
+        <a href="products.html">🛒 Products</a>
+        <div class="dropdown-divider"></div>
+        <a href="#" class="logout">🚪 Logout</a>
+      </div>
+    </div>
+
+    <a href="cart.html" class="cart">🛒 My Cart</a>
+  
+  </div>
+  <!-- CAMERA MODAL (DESKTOP) -->
+<div class="camera-modal" id="cameraModal">
+  <div class="camera-box">
+    <video id="cameraStream" autoplay></video>
+    <canvas id="cameraCanvas" hidden></canvas>
+
+    <div class="camera-actions">
+      <button id="captureBtn">📸 Capture</button>
+      <button id="closeCamera">❌ Close</button>
+    </div>
+  </div>
+</div>
+</header>
+
+<main>
+  <!-- Main content goes here -->
+   <!-- CATEGORY SLIDER -->
+  <div class="spacer"></div>
+<div class="category-slider">
+  <button class="category active" data-category="all">All</button>
+  <button class="category" data-category="veg">Veg</button>
+  <button class="category" data-category="snacks">Snacks</button>
+  <button class="category" data-category="drinks">Drinks</button>
+  <button class="category" data-category="fruits">Fruits</button>
+</div>
+
+<!-- PRODUCT GRID -->
+<div class="product-grid"></div>
+
+</main>
+
+<script src="user.js"></script>
+</body>
+</html>

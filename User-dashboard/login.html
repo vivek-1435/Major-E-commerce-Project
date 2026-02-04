@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Farmly</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body class="login-body">
+
+  <div class="login-container">
+    <h1 class="logo">Farmly</h1>
+    <p class="subtitle">Login to continue</p>
+
+    <!-- ROLE SELECTION -->
+    <!-- hidden native select kept for form compatibility; custom UI below controls it -->
+    <select id="role" hidden>
+      <option value="" disabled selected>Login as</option>
+      <option value="user">Customer</option>
+      <option value="shop">Shopkeeper</option>
+      <option value="delivery">Delivery Partner</option>
+      <option value="admin">Admin</option>
+      <option value="support">Support Team Member</option>
+    </select>
+
+    <div class="custom-select" id="roleSelect" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+      <div class="selected">Login as</div>
+      <ul class="options" role="listbox">
+        <li role="option" data-value="user" tabindex="-1">Customer</li>
+        <li role="option" data-value="shop" tabindex="-1">Shopkeeper</li>
+        <li role="option" data-value="delivery" tabindex="-1">Delivery Partner</li>
+        <li role="option" data-value="admin" tabindex="-1">Admin</li>
+        <li role="option" data-value="support" tabindex="-1">Support Team Member</li>
+      </ul>
+    </div>
+
+    <!-- CREDENTIALS -->
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p class="terms">
+      By continuing, you agree to our <span>Terms & Conditions</span>
+    </p>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>

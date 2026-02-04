@@ -1,0 +1,175 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.login-body {
+  margin: 0;
+  height: 100vh;
+  background: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background: white;
+  width: 90%;
+  max-width: 340px;
+  padding: 30px 25px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+}
+
+.logo {
+  color: #0c831f;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* INPUTS */
+.login-container input,
+.login-container select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 15px;
+}
+
+/* make select visually match inputs and use a clean custom arrow */
+.login-container select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff !important;
+  color: #111 !important;
+  background-image: linear-gradient(45deg, transparent 50%, #666 50%),
+                    linear-gradient(135deg, #666 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(50% - 2px), calc(100% - 14px) calc(50% - 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+  border: 1px solid #ddd;
+  box-shadow: none;
+  background-clip: padding-box;
+}
+
+/* Force light color-scheme for the select drop-down popup where supported */
+.login-container select {
+  color-scheme: light;
+}
+
+/* Ensure options render with white background where possible */
+.login-container select option {
+  background-color: #fff;
+  color: #111;
+}
+
+/* hide default IE arrow */
+.login-container select::-ms-expand { display: none; }
+
+.login-container select option[disabled] {
+  color: #888;
+  background-color: #fff;
+}
+
+.login-container select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(12,131,31,0.08);
+}
+
+/* Custom select styling */
+.custom-select {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.custom-select .selected {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fff;
+  font-size: 15px;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.custom-select .selected::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #666;
+  border-bottom: 2px solid #666;
+  transform: rotate(45deg);
+  margin-left: 10px;
+}
+
+.custom-select .options {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-height: 180px;
+  overflow: auto;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  z-index: 40;
+  display: none;
+}
+
+.custom-select.open .options { display: block; }
+
+.custom-select .options li {
+  list-style: none;
+  padding: 10px 12px;
+  cursor: pointer;
+  color: #111;
+}
+
+.custom-select .options li:hover,
+.custom-select .options li[aria-selected="true"] {
+  background: #f1fdf1;
+}
+
+/* BUTTON */
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background: #0c831f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background: #0a6f1a;
+}
+
+/* TERMS */
+.terms {
+  font-size: 11px;
+  color: #777;
+  margin-top: 15px;
+}
+
+.terms span {
+  color: #0c831f;
+  font-weight: bold;
+}

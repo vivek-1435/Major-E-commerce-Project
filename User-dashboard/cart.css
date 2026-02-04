@@ -1,0 +1,63 @@
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* LEFT INFO */
+.cart-info {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.cart-info h4 {
+  margin-bottom: 6px;
+}
+
+.cart-info p {
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* RIGHT ACTIONS */
+.cart-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* + and - buttons */
+.qty-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: #2a7f62;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.qty {
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* remove icon button */
+.remove-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+}
