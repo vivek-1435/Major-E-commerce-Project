@@ -36,7 +36,7 @@ function login() {
 }
 
 /* ===== Custom role select behavior ===== */
-;(function () {
+(function () {
   const custom = document.getElementById('roleSelect');
   if (!custom) return;
   const selected = custom.querySelector('.selected');
@@ -100,7 +100,7 @@ function login() {
   });
 
   // close when clicking outside
-  document.addEventListener('click', () => closeAll());
+  document.addEventListener('click', closeAll);
 
   // ensure hidden select value reflects placeholder initially
   hidden.value = '';

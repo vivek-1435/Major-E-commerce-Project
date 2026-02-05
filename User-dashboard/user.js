@@ -206,7 +206,6 @@ document.querySelectorAll(".category").forEach(btn => {
 });
 
 /* ================= SEARCH ================= */
-/* ================= SEARCH ================= */
 const searchInput = document.getElementById("searchInput");
 const suggestionsBox = document.getElementById("suggestions");
 
@@ -240,10 +239,9 @@ if (searchInput && suggestionsBox) {
 
 /* ================= GLOBAL CLOSE ================= */
 document.addEventListener("click", () => {
-  if (accountMenu) accountMenu.style.display = "none";
-  if (imageDropdown) imageDropdown.style.display = "none";
-  if (locationDropdown) locationDropdown.style.display = "none";
-  if (typeof suggestionsBox !== 'undefined' && suggestionsBox) suggestionsBox.style.display = "none";
+  [accountMenu, imageDropdown, locationDropdown, suggestionsBox].forEach(el => {
+    if (el) el.style.display = "none";
+  });
 });
 
 /* ================= INIT ================= */

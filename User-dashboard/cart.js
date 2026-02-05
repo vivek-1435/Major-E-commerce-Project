@@ -88,11 +88,6 @@ function openCheckout() {
   summarySection.style.display = 'none';
 }
 
-function closeModal() {
-  if (!checkoutModal) return;
-  checkoutModal.setAttribute('aria-hidden', 'true');
-}
-
 function renderPaymentFields(type) {
   if (!paymentFields) return;
   paymentFields.innerHTML = '';
@@ -125,7 +120,9 @@ if (checkoutModal) {
 }
 
 if (checkoutBtn) checkoutBtn.addEventListener('click', openCheckout);
-if (closeCheckout) closeCheckout.addEventListener('click', closeModal);
+if (closeCheckout) closeCheckout.addEventListener('click', () => {
+  if (checkoutModal) checkoutModal.setAttribute('aria-hidden', 'true');
+});
 
 // confirm payment handler
 if (confirmPayment) {
@@ -170,13 +167,6 @@ function showSummary(method) {
 
   // finalize: clicking finish will clear cart and close
   if (finishBtn) finishBtn.onclick = () => {
-    // simulate successful payment
-    if (method !== 'cod') {
-      // You would integrate with real gateway here
-      alert('Payment processed successfully (simulated)');
-    } else {
-      alert('Order placed. Pay on delivery');
-    }
       // assemble order details
       const orderId = 'ORD' + Date.now().toString(36).slice(-8).toUpperCase();
       const now = new Date().toISOString();
