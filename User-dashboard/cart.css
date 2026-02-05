@@ -80,6 +80,10 @@
   border-radius: 10px;
   padding: 18px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 .modal-close {
   position: absolute;
@@ -93,9 +97,15 @@
 .payment-options { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
 .payment-options label { background:#f7f7f7; padding:8px 10px; border-radius:8px; cursor:pointer; }
 #paymentFields input, #paymentFields select, #paymentFields textarea, #deliveryAddress { width:100%; padding:10px; margin-bottom:8px; border:1px solid #ddd; border-radius:6px }
-.checkout-actions { display:flex; justify-content:flex-end; }
-.checkout-actions button { background:#0c831f; color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer }
+.checkout-actions { display:flex; justify-content:center; gap:10px; margin-top:12px; flex-wrap:wrap; }
+.checkout-actions button { background:#2a7f62; color:#fff; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-weight:600; transition:background 200ms; }
+.checkout-actions button:hover { background:#1f5f47; }
 #orderSummary { max-height: 300px; overflow:auto; padding:8px; border:1px solid #eee; border-radius:6px; }
+
+#summarySection { display:flex; flex-direction:column; gap:12px; }
+#summarySection h4 { margin:0 0 12px 0; color:#333; }
+#finishBtn { width:100%; background:#2a7f62; color:#fff; border:none; padding:12px 24px; border-radius:8px; cursor:pointer; font-weight:600; font-size:15px; transition:background 200ms; }
+#finishBtn:hover { background:#1f5f47; }
 
 /* Cart summary layout and checkout button */
 .cart-summary {
@@ -109,16 +119,18 @@
 .cart-summary h3 { margin: 0; }
 
 .primary {
-  background: #0c831f;
+  background: #2a7f62;
   color: #fff;
   border: none;
-  padding: 10px 18px;
+  padding: 12px 24px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 15px;
+  font-weight: 600;
+  transition: background 200ms;
 }
 
-.primary:hover { background: #0a6f1a; }
+.primary:hover { background: #1f5f47; }
 
 /* Finish button in summary - match Farmly brand color */
 #finishBtn {
