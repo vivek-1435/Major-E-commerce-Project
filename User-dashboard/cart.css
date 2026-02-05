@@ -140,22 +140,23 @@
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.5);
   z-index: 1100;
 }
 .success-overlay[aria-hidden="false"] { display:flex; }
 .success-box {
   background: #fff;
-  padding: 26px 28px;
-  border-radius: 12px;
+  padding: 40px 32px;
+  border-radius: 14px;
   text-align: center;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-  transform: scale(.9);
-  animation: popIn 420ms cubic-bezier(.2,.9,.2,1) forwards;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+  transform: scale(.85);
+  animation: popIn 500ms cubic-bezier(.2,.9,.2,1) forwards;
+  max-width: 380px;
 }
-.success-box h3 { margin: 12px 0 6px; color: #0c831f; }
-.success-box .sub { margin:0; color:#666; font-size:14px }
-.success-box .check { stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw 700ms ease-out 120ms forwards; }
+.success-box h3 { margin: 16px 0 8px; color: #0c831f; font-size: 24px; font-weight: 600; }
+.success-box .sub { margin:0; color:#666; font-size:15px; line-height:1.4 }
+.success-box .check { stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw 700ms ease-out 200ms forwards; }
 
 @keyframes popIn {
   to { transform: scale(1); }
