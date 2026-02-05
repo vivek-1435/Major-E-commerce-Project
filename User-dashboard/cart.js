@@ -3,6 +3,12 @@ const cartDiv = document.querySelector(".cart-items");
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let lastOrder = null;
 
+// Helper function to dismiss success overlay
+function dismissSuccess() {
+  const overlay = document.getElementById('successOverlay');
+  if (overlay) overlay.setAttribute('aria-hidden', 'true');
+}
+
 function renderCart() {
   if (!cartDiv) return;
   cartDiv.innerHTML = "";
@@ -166,46 +172,48 @@ function showSummary(method) {
 
   orderSummary.innerHTML = html;
 
-  // finalize: clicking finish will clear cart and close
+  // finalize: clicking finish will clear cart and show success
   if (finishBtn) finishBtn.onclick = () => {
-      // assemble order details
-      const orderId = 'ORD' + Date.now().toString(36).slice(-8).toUpperCase();
-      const now = new Date().toISOString();
-      const items = cart.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price }));
-      const total = cart.reduce((s, it) => s + it.price * it.qty, 0);
-      lastOrder = { orderId, createdAt: now, items, total, payment: method, address };
-      try { localStorage.setItem('lastOrder', JSON.stringify(lastOrder)); } catch (e) { console.warn('could not persist order', e); }
+    // assemble order details
+    const orderId = 'ORD' + Date.now().toString(36).slice(-8).toUpperCase();
+    const now = new Date().toISOString();
+    const items = cart.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price }));
+    const total = cart.reduce((s, it) => s + it.price * it.qty, 0);
+    lastOrder = { orderId, createdAt: now, items, total, payment: method, address };
+    
+    try { localStorage.setItem('lastOrder', JSON.stringify(lastOrder)); } catch (e) { console.warn('could not persist order', e); }
 
-      // clear cart and update UI
-      localStorage.setItem('cart', JSON.stringify([]));
-      renderCart();
-      closeCheckout();
-
-      // show success overlay popup
-      showSuccessOverlay();
+    // clear cart and update UI
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+    
+    // close modal and show success overlay
+    if (checkoutModal) checkoutModal.setAttribute('aria-hidden', 'true');
+    showSuccessOverlay();
   };
+}
 
-    // show success overlay with simple animation then hide
-    function showSuccessOverlay() {
-      const overlay = document.getElementById('successOverlay');
-      if (!overlay) return;
-      // display the order ID
-      const orderIdEl = document.getElementById('orderIdDisplay');
-      if (orderIdEl && lastOrder && lastOrder.orderId) {
-        orderIdEl.innerText = `Order ID: ${lastOrder.orderId}`;
-      }
-      overlay.setAttribute('aria-hidden', 'false');
-      // remove focus from any button
-      document.activeElement && document.activeElement.blur();
-      // auto hide after 4s (longer for user to read)
-      setTimeout(() => {
-        overlay.setAttribute('aria-hidden', 'true');
-      }, 4000);
-      // also allow click to dismiss
-      overlay.addEventListener('click', () => {
-        overlay.setAttribute('aria-hidden', 'true');
-      }, { once: true });
-    }
+// show success overlay with simple animation
+function showSuccessOverlay() {
+  const overlay = document.getElementById('successOverlay');
+  if (!overlay) return;
+  // display the order ID
+  const orderIdEl = document.getElementById('orderIdDisplay');
+  if (orderIdEl && lastOrder && lastOrder.orderId) {
+    orderIdEl.innerText = `Order ID: ${lastOrder.orderId}`;
+  }
+  overlay.setAttribute('aria-hidden', 'false');
+  // remove focus from any button
+  document.activeElement && document.activeElement.blur();
+  // auto hide after 5s
+  setTimeout(() => {
+    overlay.setAttribute('aria-hidden', 'true');
+  }, 5000);
+  // also allow click to dismiss
+  overlay.addEventListener('click', (e) => {
+    overlay.setAttribute('aria-hidden', 'true');
+  }, { once: true });
 }
 
 

@@ -50,43 +50,28 @@
       <div id="orderSummary"></div>
       <div style="margin-top:12px"><button id="finishBtn">Finish</button></div>
     </div>
-    </div>
   </div>
+</div>
 
-  <!-- Success overlay -->
-  <div class="success-overlay" id="successOverlay" aria-hidden="true">
-    <div class="success-box" role="dialog" aria-modal="true" aria-labelledby="successTitle">
-      <div class="checkmark-circle">
-        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="60" cy="60" r="55" stroke="#e8f5e9" stroke-width="12" fill="none" />
-          <path class="check" d="M35 62 L52 79 L85 46" stroke="#2e7d32" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-        </svg>
-      </div>
-      <h2 id="successTitle">Order Successful</h2>
-      <p class="success-subtitle">your order is placed and will be delivered soon</p>
-      <p class="order-id" id="orderIdDisplay"></p>
-      <div class="success-actions">
-        <button class="btn-track" onclick="document.getElementById('successOverlay').setAttribute('aria-hidden', 'true')">Track Delivery</button>
-        <button class="btn-continue" onclick="window.location.href='user.html'">Continue Shopping</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="cart.js"></script>
-  </body>
-  </html>
-
-  <!-- Success animation overlay -->
-  <div id="successOverlay" class="success-overlay" aria-hidden="true">
-    <div class="success-box">
-      <svg class="check" viewBox="0 0 52 52" width="72" height="72" aria-hidden="true">
-        <circle cx="26" cy="26" r="25" fill="none" stroke="#4BB543" stroke-width="2" />
-        <path fill="none" stroke="#4BB543" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M14 27 L22 34 L38 16"/>
+<!-- Success overlay -->
+<div class="success-overlay" id="successOverlay" aria-hidden="true">
+  <div class="success-box" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+    <div class="checkmark-circle">
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="55" stroke="#e8f5e9" stroke-width="12" fill="none" />
+        <path class="check" d="M35 62 L52 79 L85 46" stroke="#2e7d32" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
       </svg>
-      <h3>Your order is placed!</h3>
-      <p class="sub">Thanks for shopping with Farmly — your order will arrive soon.</p>
+    </div>
+    <h2 id="successTitle">Order Successful</h2>
+    <p class="success-subtitle">your order is placed and will be delivered soon</p>
+    <p class="order-id" id="orderIdDisplay"></p>
+    <div class="success-actions">
+      <button class="btn-track" onclick="dismissSuccess()">Track Delivery</button>
+      <button class="btn-continue" onclick="window.location.href='user.html'">Continue Shopping</button>
     </div>
   </div>
+</div>
 
-  </body>
-  </html>
+<script src="cart.js"></script>
+</body>
+</html>
