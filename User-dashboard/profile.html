@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile — Farmly</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <header class="profile-header">
+    <a href="user.html" class="logo">Farmly</a>
+    <h1>My Profile</h1>
+  </header>
+
+  <main class="container">
+    <section class="profile-card">
+      <div class="avatar">
+        <img id="profilePhoto" src="https://via.placeholder.com/120" alt="Profile photo">
+        <input id="photoInput" type="file" accept="image/*" style="display:none">
+        <button id="changePhoto">Change Photo</button>
+      </div>
+      <div class="profile-info">
+        <div class="info-row">
+          <label>Name</label>
+          <input id="nameInput" type="text" placeholder="Your name">
+        </div>
+        <div class="info-row">
+          <label>Email</label>
+          <input id="emailInput" type="email" placeholder="you@example.com">
+        </div>
+        <div class="info-row">
+          <label>Phone</label>
+          <input id="phoneInput" type="tel" placeholder="+91 98765 43210">
+        </div>
+        <div class="profile-actions">
+          <button id="saveProfile" class="btn-primary">Save</button>
+          <button id="logoutBtn" class="btn-ghost">Logout</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panels">
+      <div class="panel">
+        <h2>Current Orders</h2>
+        <div id="currentOrders" class="panel-body">No active orders</div>
+        <a href="track-order.html" class="panel-link">View all orders & track</a>
+      </div>
+
+      <div class="panel">
+        <h2>Order History</h2>
+        <div id="orderHistory" class="panel-body">You haven't placed any orders yet.</div>
+      </div>
+
+      <div class="panel two-col">
+        <div>
+          <h2>Saved Addresses</h2>
+          <div id="addresses" class="panel-body"></div>
+          <button id="addAddress" class="btn-secondary">Add Address</button>
+        </div>
+
+        <div>
+          <h2>Payment Methods & Wallet</h2>
+          <div id="payments" class="panel-body"></div>
+          <button id="addPayment" class="btn-secondary">Add Payment Method</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Wishlist</h2>
+        <div id="wishlist" class="panel-body">Your wishlist is empty.</div>
+      </div>
+
+      <div class="panel two-col">
+        <div>
+          <h2>Offers & Rewards</h2>
+          <div id="rewards" class="panel-body">No active offers.</div>
+        </div>
+        <div>
+          <h2>Notifications & Settings</h2>
+          <div class="panel-body">
+            <label><input id="notiEmail" type="checkbox"> Email notifications</label><br>
+            <label><input id="notiSms" type="checkbox"> SMS notifications</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel two-col">
+        <div>
+          <h2>Security</h2>
+          <div class="panel-body">
+            <button id="changePassword" class="btn-secondary">Change Password</button>
+          </div>
+        </div>
+        <div>
+          <h2>Help & Support</h2>
+          <div class="panel-body">
+            <button id="contactSupport" class="btn-secondary">Contact Support</button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="profile.js"></script>
+</body>
+</html>
