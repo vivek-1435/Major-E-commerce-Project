@@ -202,7 +202,10 @@ function addToCart(product) {
   else cart.push({ ...product, qty: 1 });
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  render();
+  // re-render only the currently active category so we don't jump back to "All"
+  const activeBtn = document.querySelector('.category.active');
+  const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
+  render(activeCat === 'all' ? products : products.filter(p => p.category === activeCat));
 }
 
 function removeFromProduct(productId) {
@@ -218,7 +221,10 @@ function removeFromProduct(productId) {
   }
   
   localStorage.setItem("cart", JSON.stringify(cart));
-  render();
+  // keep the user in the same category after removing/decrementing
+  const activeBtn = document.querySelector('.category.active');
+  const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
+  render(activeCat === 'all' ? products : products.filter(p => p.category === activeCat));
 }
 
 function updateCartDisplay() {
@@ -287,7 +293,10 @@ if (searchInput && suggestionsBox) {
 
     if (!q) {
       suggestionsBox.style.display = "none";
-      render();
+      // re-render current category instead of jumping to All
+      const activeBtn = document.querySelector('.category.active');
+      const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
+      render(activeCat === 'all' ? products : products.filter(p => p.category === activeCat));
       return;
     }
 
@@ -316,5 +325,8 @@ document.addEventListener("click", () => {
 });
 
 /* ================= INIT ================= */
-render();
+// initial render should respect any active category (if present)
+const activeBtn = document.querySelector('.category.active');
+const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
+render(activeCat === 'all' ? products : products.filter(p => p.category === activeCat));
 
