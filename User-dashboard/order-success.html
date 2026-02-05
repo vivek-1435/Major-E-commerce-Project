@@ -51,7 +51,6 @@
         html += `<div style="margin-top:8px;color:#444"><strong>Delivery:</strong><br/>${(order.address||'No address provided').replace(/\n/g,'<br/>')}</div>`;
         container.innerHTML = html;
       } catch (e) {
-        console.error(e);
         document.getElementById('orderMeta').innerText = 'Could not read order details.';
       }
     })();

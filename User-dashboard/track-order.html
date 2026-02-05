@@ -246,7 +246,7 @@
       // Simulate real-time tracking update
       simulateDeliveryTracking(order);
     } catch (e) {
-      console.error('Error loading order:', e);
+      // Failed to parse stored order; ignore and show empty state
     }
   });
 

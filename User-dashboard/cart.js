@@ -173,66 +173,54 @@ function showSummary(method) {
   orderSummary.innerHTML = html;
 
   // finalize: clicking finish will clear cart and show success
-  if (finishBtn) finishBtn.onclick = () => {
-    console.log('Finish button clicked');
+    if (finishBtn) finishBtn.onclick = () => {
     // assemble order details
     const orderId = 'ORD' + Date.now().toString(36).slice(-8).toUpperCase();
     const now = new Date().toISOString();
     const items = cart.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price }));
     const total = cart.reduce((s, it) => s + it.price * it.qty, 0);
     lastOrder = { orderId, createdAt: now, items, total, payment: method, address };
-    console.log('Order created:', lastOrder);
-    
+
     try { localStorage.setItem('lastOrder', JSON.stringify(lastOrder)); } catch (e) { console.warn('could not persist order', e); }
 
     // clear cart and update UI
     cart = [];
     localStorage.setItem('cart', JSON.stringify(cart));
     renderCart();
-    console.log('Cart cleared and rendered');
-    
+
     // close modal and show success overlay
     if (checkoutModal) checkoutModal.setAttribute('aria-hidden', 'true');
-    console.log('Modal closed');
     showSuccessOverlay();
-    console.log('Success overlay shown');
   };
 }
 
 // show success overlay with simple animation
 function showSuccessOverlay() {
-  console.log('showSuccessOverlay called');
   const overlay = document.getElementById('successOverlay');
   if (!overlay) {
-    console.error('Success overlay element not found');
     return;
   }
-  console.log('Overlay found, displaying...');
-  
+
   // display the order ID
   const orderIdEl = document.getElementById('orderIdDisplay');
   if (orderIdEl && lastOrder && lastOrder.orderId) {
     orderIdEl.innerText = `Order ID: ${lastOrder.orderId}`;
-    console.log('Order ID displayed:', lastOrder.orderId);
   }
-  
+
   overlay.setAttribute('aria-hidden', 'false');
-  console.log('Overlay aria-hidden set to false');
-  
+
   // remove focus from any button
   document.activeElement && document.activeElement.blur();
-  
+
   // auto hide after 5s
   const hideTimer = setTimeout(() => {
     overlay.setAttribute('aria-hidden', 'true');
-    console.log('Overlay auto-hidden after 5s');
   }, 5000);
-  
+
   // also allow click to dismiss
   overlay.addEventListener('click', (e) => {
     clearTimeout(hideTimer);
     overlay.setAttribute('aria-hidden', 'true');
-    console.log('Overlay dismissed by click');
   }, { once: true });
 }
 

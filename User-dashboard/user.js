@@ -236,7 +236,6 @@ function updateCartDisplay() {
   const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
   
   const cartLink = document.querySelector('a.cart');
-  console.log('Updating cart display. Items:', totalItems, 'Price:', totalPrice, 'Link:', cartLink);
   
   if (cartLink) {
     if (totalItems > 0) {
