@@ -66,55 +66,24 @@ renderList('wishlist','wishlist','Your wishlist is empty.');
 renderList('orderHistory','orderHistory','You have no past orders.');
 
 // Add address / payment buttons just create prompt entries for now
-// Address modal flow
-const addressModal = $('addressModal');
-const addrTextarea = $('addrTextarea');
-const saveAddr = $('saveAddr');
-const cancelAddr = $('cancelAddr');
-let editingAddrIndex = -1;
-
 $('addAddress').addEventListener('click', ()=>{
-  editingAddrIndex = -1;
-  $('addrModalTitle').textContent = 'Add Address';
-  addrTextarea.value = '';
-  addressModal.hidden = false;
+  const a = prompt('Enter address (multi-line OK)');
+  if(a){
+    const list = JSON.parse(localStorage.getItem('addresses')||'[]');
+    list.push(a);
+    localStorage.setItem('addresses', JSON.stringify(list));
+    renderList('addresses','addresses','No saved addresses yet.');
+  }
 });
-cancelAddr.addEventListener('click', ()=> addressModal.hidden = true);
-saveAddr.addEventListener('click', ()=>{
-  const a = addrTextarea.value.trim();
-  if(!a){ alert('Please enter an address'); return }
-  const list = JSON.parse(localStorage.getItem('addresses')||'[]');
-  if(editingAddrIndex >= 0) list[editingAddrIndex] = a; else list.push(a);
-  localStorage.setItem('addresses', JSON.stringify(list));
-  renderList('addresses','addresses','No saved addresses yet.');
-  addressModal.hidden = true;
-});
-
-// Payment modal flow
-const paymentModal = $('paymentModal');
-const payTitle = $('payTitle');
-const paySubtitle = $('paySubtitle');
-const savePay = $('savePay');
-const cancelPay = $('cancelPay');
-let editingPayIndex = -1;
 
 $('addPayment').addEventListener('click', ()=>{
-  editingPayIndex = -1;
-  $('payModalTitle').textContent = 'Add Payment Method';
-  payTitle.value = '';
-  paySubtitle.value = '';
-  paymentModal.hidden = false;
-});
-cancelPay.addEventListener('click', ()=> paymentModal.hidden = true);
-savePay.addEventListener('click', ()=>{
-  const t = payTitle.value.trim();
-  const s = paySubtitle.value.trim();
-  if(!t){ alert('Please add a title'); return }
-  const list = JSON.parse(localStorage.getItem('payments')||'[]');
-  list.push({ title: t, subtitle: s });
-  localStorage.setItem('payments', JSON.stringify(list));
-  renderList('payments','payments','No payment methods saved.');
-  paymentModal.hidden = true;
+  const p = prompt('Enter payment method name (e.g. Visa ****1234)');
+  if(p){
+    const list = JSON.parse(localStorage.getItem('payments')||'[]');
+    list.push(p);
+    localStorage.setItem('payments', JSON.stringify(list));
+    renderList('payments','payments','No payment methods saved.');
+  }
 });
 
 $('contactSupport').addEventListener('click', ()=>{
