@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Track Your Order</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .header h1 {
+      color: #2a7f62;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .order-info {
+      background: #f9f9f9;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      border-left: 4px solid #2a7f62;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .info-value {
+      color: #666;
+    }
+
+    .tracking-timeline {
+      margin: 32px 0;
+      position: relative;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .timeline-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 50px;
+      width: 2px;
+      height: 40px;
+      background: #e0e0e0;
+    }
+
+    .timeline-item.completed::before {
+      background: #2a7f62;
+    }
+
+    .timeline-dot {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #999;
+      flex-shrink: 0;
+    }
+
+    .timeline-item.completed .timeline-dot {
+      background: #2a7f62;
+      color: #fff;
+    }
+
+    .timeline-item.pending .timeline-dot {
+      background: #fff;
+      border: 2px solid #2a7f62;
+      color: #2a7f62;
+    }
+
+    .timeline-content {
+      padding-top: 6px;
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .timeline-time {
+      font-size: 13px;
+      color: #999;
+    }
+
+    .timeline-item.pending .timeline-time {
+      color: #2a7f62;
+      font-weight: 500;
+    }
+
+    .status-message {
+      background: #e8f5e9;
+      border: 1px solid #2a7f62;
+      color: #2a7f62;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 200ms;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #2a7f62;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #1f5f47;
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #efefef;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .empty-state h2 {
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .empty-state p {
+      color: #999;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>Track Your Order</h1>
+    <p>Real-time order tracking and delivery updates</p>
+  </div>
+
+  <div id="trackingContent" class="empty-state">
+    <h2>No Recent Orders</h2>
+    <p>You haven't placed any orders yet or your session has expired.</p>
+    <a href="user.html" class="btn btn-primary">Continue Shopping</a>
+  </div>
+</div>
+
+<script>
+  // Load order from localStorage
+  document.addEventListener('DOMContentLoaded', () => {
+    const lastOrderStr = localStorage.getItem('lastOrder');
+    if (!lastOrderStr) return;
+
+    try {
+      const order = JSON.parse(lastOrderStr);
+      displayOrderTracking(order);
+    } catch (e) {
+      console.error('Error loading order:', e);
+    }
+  });
+
+  function displayOrderTracking(order) {
+    const html = `
+      <div class="order-info">
+        <div class="info-row">
+          <span class="info-label">Order ID</span>
+          <span class="info-value">${order.orderId}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Order Date</span>
+          <span class="info-value">${new Date(order.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Total Amount</span>
+          <span class="info-value">₹${order.total}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Payment Method</span>
+          <span class="info-value">${order.payment.toUpperCase()}</span>
+        </div>
+      </div>
+
+      <div class="status-message">
+        ✓ Order confirmed. Your items will be delivered soon!
+      </div>
+
+      <div class="tracking-timeline">
+        <div class="timeline-item completed">
+          <div class="timeline-dot">✓</div>
+          <div class="timeline-content">
+            <div class="timeline-title">Order Confirmed</div>
+            <div class="timeline-time">${new Date(order.createdAt).toLocaleString('en-IN')}</div>
+          </div>
+        </div>
+
+        <div class="timeline-item completed">
+          <div class="timeline-dot">✓</div>
+          <div class="timeline-content">
+            <div class="timeline-title">Payment Verified</div>
+            <div class="timeline-time">Today</div>
+          </div>
+        </div>
+
+        <div class="timeline-item pending">
+          <div class="timeline-dot">2</div>
+          <div class="timeline-content">
+            <div class="timeline-title">Preparing for Delivery</div>
+            <div class="timeline-time">Expected: Tomorrow</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">3</div>
+          <div class="timeline-content">
+            <div class="timeline-title">Out for Delivery</div>
+            <div class="timeline-time">Coming soon</div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">✓</div>
+          <div class="timeline-content">
+            <div class="timeline-title">Delivered</div>
+            <div class="timeline-time">Estimated: Within 2 days</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-info">
+        <div class="info-row">
+          <span class="info-label">Delivery Address</span>
+        </div>
+        <div style="padding: 8px 0; color: #666; font-size: 13px; line-height: 1.6;">
+          ${order.address.replace(/\n/g, '<br/>')}
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="window.location.href='user.html'">Continue Shopping</button>
+        <button class="btn btn-secondary" onclick="window.location.href='cart.html'">View Cart</button>
+      </div>
+    `;
+
+    document.getElementById('trackingContent').innerHTML = html;
+  }
+</script>
+
+</body>
+</html>

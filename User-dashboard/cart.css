@@ -120,18 +120,20 @@
 
 .primary:hover { background: #0a6f1a; }
 
-/* Finish button in summary - match primary style */
+/* Finish button in summary - match Farmly brand color */
 #finishBtn {
-  background: #0c831f;
+  background: #2a7f62;
   color: #fff;
   border: none;
-  padding: 8px 14px;
+  padding: 12px 24px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
+  transition: background 200ms;
 }
 
-#finishBtn:hover { background: #0a6f1a; }
+#finishBtn:hover { background: #1f5f47; }
 
 /* Success overlay */
 .success-overlay {
@@ -188,7 +190,7 @@
 .btn-track {
   padding: 12px 24px;
   border: none;
-  background: #1976d2;
+  background: #2a7f62;
   color: #fff;
   border-radius: 8px;
   font-size: 14px;
@@ -196,7 +198,7 @@
   cursor: pointer;
   transition: background 200ms;
 }
-.btn-track:hover { background: #1565c0; }
+.btn-track:hover { background: #1f5f47; }
 .btn-continue {
   padding: 12px 24px;
   border: none;
