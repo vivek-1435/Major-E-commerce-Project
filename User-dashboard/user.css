@@ -429,6 +429,29 @@
   background: #f5f5f5;
 }
 
+/* Cart link and styling */
+a[href="cart.html"] {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: all 200ms ease;
+}
+
+.cart-text {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.cart-price {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
 /* Cart badge and styling */
 .cart-badge {
   display: inline-block;
@@ -443,12 +466,4 @@
   font-weight: bold;
   margin-left: 4px;
   vertical-align: middle;
-}
-
-.cart-price {
-  display: block;
-  font-size: 12px;
-  color: #2a7f62;
-  font-weight: 600;
-  margin-top: 2px;
 }

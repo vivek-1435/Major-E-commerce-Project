@@ -226,14 +226,26 @@ function updateCartDisplay() {
   const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
   const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
   
-  const cartLinks = document.querySelectorAll('a[href="cart.html"], button[onclick*="cart.html"]');
-  cartLinks.forEach(link => {
+  const cartLink = document.querySelector('a[href="cart.html"]');
+  if (cartLink) {
     if (totalItems > 0) {
-      link.innerHTML = `🛒 My Cart <span class="cart-badge">${totalItems}</span><br><span class="cart-price">₹${totalPrice}</span>`;
+      cartLink.innerHTML = `<span class="cart-text">${totalItems} items</span><span class="cart-price">₹${totalPrice}</span>`;
+      cartLink.style.backgroundColor = '#2a7f62';
+      cartLink.style.color = '#fff';
+      cartLink.style.padding = '10px 14px';
+      cartLink.style.borderRadius = '6px';
+      cartLink.style.fontWeight = '600';
+      cartLink.style.fontSize = '13px';
     } else {
-      link.innerHTML = '🛒 My Cart';
+      cartLink.innerHTML = '🛒 My Cart';
+      cartLink.style.backgroundColor = '';
+      cartLink.style.color = '';
+      cartLink.style.padding = '';
+      cartLink.style.borderRadius = '';
+      cartLink.style.fontWeight = '';
+      cartLink.style.fontSize = '';
     }
-  });
+  }
 }
 
 /* ================= CATEGORY FILTER ================= */
