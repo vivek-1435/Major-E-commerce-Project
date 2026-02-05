@@ -13,8 +13,47 @@
 
 <div class="cart-summary">
   <h3>Total: <span id="totalPrice">₹0</span></h3>
+  <button id="checkoutBtn">Proceed to Checkout</button>
 </div>
 
 <script src="cart.js"></script>
+</body>
+
+<!-- Checkout / Payment Modal -->
+<div id="checkoutModal" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <button class="modal-close" id="closeCheckout">✕</button>
+    <h3>Checkout</h3>
+
+    <div id="paymentSection">
+      <div class="payment-options">
+        <label><input type="radio" name="payment" value="card" checked> Credit / Debit Card</label>
+        <label><input type="radio" name="payment" value="upi"> UPI</label>
+        <label><input type="radio" name="payment" value="paypal"> PayPal</label>
+        <label><input type="radio" name="payment" value="cod"> Cash on Delivery</label>
+      </div>
+
+      <form id="paymentForm">
+        <!-- dynamic fields inserted here -->
+        <div id="paymentFields"></div>
+
+        <div class="address-block">
+          <label>Delivery Address</label>
+          <textarea id="deliveryAddress" placeholder="Enter delivery address or leave to use saved address"></textarea>
+        </div>
+
+        <div class="checkout-actions">
+          <button type="button" id="confirmPayment">Confirm & Pay</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="summarySection" style="display:none">
+      <h4>Order Summary</h4>
+      <div id="orderSummary"></div>
+      <div style="margin-top:12px"><button id="finishBtn">Finish</button></div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
