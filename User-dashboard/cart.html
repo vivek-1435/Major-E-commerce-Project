@@ -56,12 +56,19 @@
   <!-- Success overlay -->
   <div class="success-overlay" id="successOverlay" aria-hidden="true">
     <div class="success-box" role="dialog" aria-modal="true" aria-labelledby="successTitle">
-      <svg width="86" height="86" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="50" cy="50" r="45" stroke="#c6f0d0" stroke-width="10" fill="#e9fff0" />
-        <path class="check" d="M30 52 L44 66 L72 38" stroke="#0a6f1a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-      </svg>
-      <h3 id="successTitle">Your Order is Placed</h3>
-      <p class="sub">Thanks for shopping! We'll send you shipping details soon.</p>
+      <div class="checkmark-circle">
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="55" stroke="#e8f5e9" stroke-width="12" fill="none" />
+          <path class="check" d="M35 62 L52 79 L85 46" stroke="#2e7d32" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+        </svg>
+      </div>
+      <h2 id="successTitle">Order Successful</h2>
+      <p class="success-subtitle">your order is placed and will be delivered soon</p>
+      <p class="order-id" id="orderIdDisplay"></p>
+      <div class="success-actions">
+        <button class="btn-track" onclick="document.getElementById('successOverlay').setAttribute('aria-hidden', 'true')">Track Delivery</button>
+        <button class="btn-continue" onclick="window.location.href='user.html'">Continue Shopping</button>
+      </div>
     </div>
   </div>
 

@@ -140,26 +140,84 @@
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.55);
   z-index: 1100;
 }
-.success-overlay[aria-hidden="false"] { display:flex; }
+.success-overlay[aria-hidden="false"] { display: flex; }
 .success-box {
   background: #fff;
-  padding: 40px 32px;
-  border-radius: 14px;
+  padding: 50px 40px;
+  border-radius: 16px;
   text-align: center;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-  transform: scale(.85);
-  animation: popIn 500ms cubic-bezier(.2,.9,.2,1) forwards;
-  max-width: 380px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+  transform: scale(0.8);
+  animation: popIn 600ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  max-width: 420px;
+  width: 90%;
 }
-.success-box h3 { margin: 16px 0 8px; color: #0c831f; font-size: 24px; font-weight: 600; }
-.success-box .sub { margin:0; color:#666; font-size:15px; line-height:1.4 }
-.success-box .check { stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw 700ms ease-out 200ms forwards; }
+.checkmark-circle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.success-box h2 { 
+  margin: 0 0 10px; 
+  color: #2e7d32; 
+  font-size: 28px; 
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.success-subtitle { 
+  margin: 0 0 16px; 
+  color: #666; 
+  font-size: 15px;
+  line-height: 1.5;
+}
+.order-id {
+  margin: 12px 0;
+  color: #999;
+  font-size: 13px;
+  font-weight: 500;
+}
+.success-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-direction: column;
+}
+.btn-track {
+  padding: 12px 24px;
+  border: none;
+  background: #1976d2;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms;
+}
+.btn-track:hover { background: #1565c0; }
+.btn-continue {
+  padding: 12px 24px;
+  border: none;
+  background: #f5f5f5;
+  color: #333;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms;
+}
+.btn-continue:hover { background: #efefef; }
+.success-box .check { 
+  stroke-dasharray: 120; 
+  stroke-dashoffset: 120; 
+  animation: draw 700ms ease-out 300ms forwards; 
+}
 
 @keyframes popIn {
-  to { transform: scale(1); }
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 @keyframes draw {

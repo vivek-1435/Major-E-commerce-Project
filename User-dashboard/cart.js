@@ -1,6 +1,7 @@
 const cartDiv = document.querySelector(".cart-items");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let lastOrder = null;
 
 function renderCart() {
   if (!cartDiv) return;
@@ -172,7 +173,7 @@ function showSummary(method) {
       const now = new Date().toISOString();
       const items = cart.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price }));
       const total = cart.reduce((s, it) => s + it.price * it.qty, 0);
-      const lastOrder = { orderId, createdAt: now, items, total, payment: method, address };
+      lastOrder = { orderId, createdAt: now, items, total, payment: method, address };
       try { localStorage.setItem('lastOrder', JSON.stringify(lastOrder)); } catch (e) { console.warn('could not persist order', e); }
 
       // clear cart and update UI
@@ -188,13 +189,18 @@ function showSummary(method) {
     function showSuccessOverlay() {
       const overlay = document.getElementById('successOverlay');
       if (!overlay) return;
+      // display the order ID
+      const orderIdEl = document.getElementById('orderIdDisplay');
+      if (orderIdEl && lastOrder && lastOrder.orderId) {
+        orderIdEl.innerText = `Order ID: ${lastOrder.orderId}`;
+      }
       overlay.setAttribute('aria-hidden', 'false');
       // remove focus from any button
       document.activeElement && document.activeElement.blur();
-      // auto hide after 2.4s
+      // auto hide after 4s (longer for user to read)
       setTimeout(() => {
         overlay.setAttribute('aria-hidden', 'true');
-      }, 2400);
+      }, 4000);
       // also allow click to dismiss
       overlay.addEventListener('click', () => {
         overlay.setAttribute('aria-hidden', 'true');
