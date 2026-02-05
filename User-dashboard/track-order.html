@@ -151,6 +151,21 @@
       font-weight: 500;
     }
 
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2a7f62, #1f5f47);
+      transition: width 0.5s ease;
+    }
+
     .actions {
       display: flex;
       gap: 12px;
@@ -228,12 +243,59 @@
     try {
       const order = JSON.parse(lastOrderStr);
       displayOrderTracking(order);
+      // Simulate real-time tracking update
+      simulateDeliveryTracking(order);
     } catch (e) {
       console.error('Error loading order:', e);
     }
   });
 
+  // Simulate realistic delivery tracking progress
+  function simulateDeliveryTracking(order) {
+    // Simulate random progress: 30-80% completion
+    const progress = Math.floor(Math.random() * 50) + 30;
+    localStorage.setItem('deliveryProgress_' + order.orderId, progress.toString());
+  }
+
   function displayOrderTracking(order) {
+    // Get tracking progress
+    const progress = parseInt(localStorage.getItem('deliveryProgress_' + order.orderId) || '40');
+    
+    const timelineStates = [
+      { status: 'completed', show: progress >= 0 },
+      { status: 'completed', show: progress >= 20 },
+      { status: progress >= 50 ? 'pending' : 'incomplete', show: progress >= 40 },
+      { status: progress >= 80 ? 'pending' : 'incomplete', show: true },
+      { status: 'incomplete', show: true }
+    ];
+
+    const stages = [
+      { icon: '✓', title: 'Order Confirmed', time: new Date(order.createdAt).toLocaleString('en-IN') },
+      { icon: '✓', title: 'Payment Verified', time: 'Today' },
+      { icon: '2', title: 'Preparing for Delivery', time: 'Expected: Within 2 hours' },
+      { icon: '3', title: 'Out for Delivery', time: 'Coming soon' },
+      { icon: '✓', title: 'Delivered', time: 'Estimated: Within 24 hours' }
+    ];
+
+    let timelineHTML = '';
+    stages.forEach((stage, idx) => {
+      const state = timelineStates[idx];
+      if (!state.show) return;
+      
+      const itemClass = state.status === 'completed' ? 'completed' : 
+                       state.status === 'pending' ? 'pending' : '';
+      
+      timelineHTML += `
+        <div class="timeline-item ${itemClass}">
+          <div class="timeline-dot">${stage.icon}</div>
+          <div class="timeline-content">
+            <div class="timeline-title">${stage.title}</div>
+            <div class="timeline-time">${stage.time}</div>
+          </div>
+        </div>
+      `;
+    });
+
     const html = `
       <div class="order-info">
         <div class="info-row">
@@ -255,49 +317,15 @@
       </div>
 
       <div class="status-message">
-        ✓ Order confirmed. Your items will be delivered soon!
+        📍 Your order is on its way! Current progress: ${progress}%
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: ${progress}%"></div>
       </div>
 
       <div class="tracking-timeline">
-        <div class="timeline-item completed">
-          <div class="timeline-dot">✓</div>
-          <div class="timeline-content">
-            <div class="timeline-title">Order Confirmed</div>
-            <div class="timeline-time">${new Date(order.createdAt).toLocaleString('en-IN')}</div>
-          </div>
-        </div>
-
-        <div class="timeline-item completed">
-          <div class="timeline-dot">✓</div>
-          <div class="timeline-content">
-            <div class="timeline-title">Payment Verified</div>
-            <div class="timeline-time">Today</div>
-          </div>
-        </div>
-
-        <div class="timeline-item pending">
-          <div class="timeline-dot">2</div>
-          <div class="timeline-content">
-            <div class="timeline-title">Preparing for Delivery</div>
-            <div class="timeline-time">Expected: Tomorrow</div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot">3</div>
-          <div class="timeline-content">
-            <div class="timeline-title">Out for Delivery</div>
-            <div class="timeline-time">Coming soon</div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-dot">✓</div>
-          <div class="timeline-content">
-            <div class="timeline-title">Delivered</div>
-            <div class="timeline-time">Estimated: Within 2 days</div>
-          </div>
-        </div>
+        ${timelineHTML}
       </div>
 
       <div class="order-info">
