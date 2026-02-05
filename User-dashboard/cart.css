@@ -132,3 +132,45 @@
 }
 
 #finishBtn:hover { background: #0a6f1a; }
+
+/* Success overlay */
+.success-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+  z-index: 1100;
+}
+.success-overlay[aria-hidden="false"] { display:flex; }
+.success-box {
+  background: #fff;
+  padding: 26px 28px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  transform: scale(.9);
+  animation: popIn 420ms cubic-bezier(.2,.9,.2,1) forwards;
+}
+.success-box h3 { margin: 12px 0 6px; color: #0c831f; }
+.success-box .sub { margin:0; color:#666; font-size:14px }
+.success-box .check { stroke-dasharray: 100; stroke-dashoffset: 100; animation: draw 700ms ease-out 120ms forwards; }
+
+@keyframes popIn {
+  to { transform: scale(1); }
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Order success page tweaks */
+.order-success { max-width:760px; margin:56px auto; padding:28px; background:#fff; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.06); text-align:center }
+.order-success h1{ color:#0a6f1a; margin-bottom:6px }
+.order-success .meta { color:#666; margin-bottom:18px }
+.order-success .items { text-align:left; margin: 14px 0; border-top:1px solid #eee; padding-top:12px }
+.order-success .item { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #f2f2f2 }
+.order-success .actions { margin-top:20px }
+.btn { display:inline-block; padding:10px 16px; border-radius:6px; background:#0a6f1a; color:#fff; text-decoration:none }
+.secondary { background:#f3f3f3; color:#333; margin-left:10px }

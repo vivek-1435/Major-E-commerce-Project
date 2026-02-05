@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Order Confirmed</title>
+  <link rel="stylesheet" href="cart.css">
+  <style>
+    .order-success { max-width:760px; margin:56px auto; padding:28px; background:#fff; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.06); text-align:center }
+    .order-success h1{ color:#0a6f1a; margin-bottom:6px }
+    .order-success .meta { color:#666; margin-bottom:18px }
+    .order-success .items { text-align:left; margin: 14px 0; border-top:1px solid #eee; padding-top:12px }
+    .order-success .item { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed #f2f2f2 }
+    .order-success .actions { margin-top:20px }
+    .btn { display:inline-block; padding:10px 16px; border-radius:6px; background:#0a6f1a; color:#fff; text-decoration:none }
+    .secondary { background:#f3f3f3; color:#333; margin-left:10px }
+  </style>
+</head>
+<body>
+  <main class="order-success" role="main">
+    <svg width="86" height="86" viewBox="0 0 100 100" style="margin:0 auto 12px; display:block"><circle cx="50" cy="50" r="45" stroke="#c6f0d0" stroke-width="10" fill="#e9fff0" /><path d="M30 52 L44 66 L72 38" stroke="#0a6f1a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+    <h1>Thanks — your order is confirmed</h1>
+    <p class="meta" id="orderMeta">We have received your order. You'll receive updates by email/SMS.</p>
+
+    <div id="orderItems" class="items"></div>
+
+    <div class="actions">
+      <a href="user.html" class="btn">Continue Shopping</a>
+      <a href="cart.html" class="btn secondary">View Cart</a>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      let raw = localStorage.getItem('lastOrder');
+      if (!raw) {
+        document.getElementById('orderMeta').innerText = 'No recent order found.';
+        return;
+      }
+      try {
+        const order = JSON.parse(raw);
+        document.title = 'Order ' + order.orderId + ' — Confirmed';
+        document.getElementById('orderMeta').innerHTML = `Order ID: <strong>${order.orderId}</strong> — Placed ${new Date(order.createdAt).toLocaleString()}`;
+        const container = document.getElementById('orderItems');
+        let html = '';
+        order.items.forEach(it => {
+          html += `<div class="item"><div>${it.name} × ${it.qty}</div><div>₹${it.price * it.qty}</div></div>`;
+        });
+        html += `<div class="item"><strong>Total</strong><strong>₹${order.total}</strong></div>`;
+        html += `<div style="margin-top:8px;color:#444"><strong>Payment:</strong> ${order.payment.toUpperCase()}</div>`;
+        html += `<div style="margin-top:8px;color:#444"><strong>Delivery:</strong><br/>${(order.address||'No address provided').replace(/\n/g,'<br/>')}</div>`;
+        container.innerHTML = html;
+      } catch (e) {
+        console.error(e);
+        document.getElementById('orderMeta').innerText = 'Could not read order details.';
+      }
+    })();
+  </script>
+</body>
+</html>

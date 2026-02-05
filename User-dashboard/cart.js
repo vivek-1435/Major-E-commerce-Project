@@ -177,12 +177,39 @@ function showSummary(method) {
     } else {
       alert('Order placed. Pay on delivery');
     }
-    // clear cart
-    cart = [];
-    localStorage.setItem('cart', JSON.stringify(cart));
-    renderCart();
-    closeModal();
+      // assemble order details
+      const orderId = 'ORD' + Date.now().toString(36).slice(-8).toUpperCase();
+      const now = new Date().toISOString();
+      const items = cart.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price }));
+      const total = cart.reduce((s, it) => s + it.price * it.qty, 0);
+      const lastOrder = { orderId, createdAt: now, items, total, payment: method, address };
+      try { localStorage.setItem('lastOrder', JSON.stringify(lastOrder)); } catch (e) { console.warn('could not persist order', e); }
+
+      // clear cart and update UI
+      localStorage.setItem('cart', JSON.stringify([]));
+      renderCart();
+      closeCheckout();
+
+      // show success overlay then navigate to order page
+      showSuccessOverlay();
+      setTimeout(() => {
+        // navigate to a dedicated order success page
+        window.location.href = 'order-success.html';
+      }, 1200);
   };
+
+    // show success overlay with simple animation then hide
+    function showSuccessOverlay() {
+      const overlay = document.getElementById('successOverlay');
+      if (!overlay) return;
+      overlay.setAttribute('aria-hidden', 'false');
+      // remove focus from any button
+      document.activeElement && document.activeElement.blur();
+      // auto hide after 2.4s
+      setTimeout(() => {
+        overlay.setAttribute('aria-hidden', 'true');
+      }, 2400);
+    }
 }
 
 
