@@ -226,24 +226,41 @@ function updateCartDisplay() {
   const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
   const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
   
-  const cartLink = document.querySelector('a[href="cart.html"]');
+  const cartLink = document.querySelector('a.cart');
+  console.log('Updating cart display. Items:', totalItems, 'Price:', totalPrice, 'Link:', cartLink);
+  
   if (cartLink) {
     if (totalItems > 0) {
-      cartLink.innerHTML = `<span class="cart-text">${totalItems} items</span><span class="cart-price">₹${totalPrice}</span>`;
+      cartLink.textContent = '';
+      const itemsSpan = document.createElement('span');
+      itemsSpan.className = 'cart-text';
+      itemsSpan.textContent = totalItems + ' items';
+      
+      const priceSpan = document.createElement('span');
+      priceSpan.className = 'cart-price';
+      priceSpan.textContent = '₹' + totalPrice;
+      
+      cartLink.appendChild(itemsSpan);
+      cartLink.appendChild(priceSpan);
+      
       cartLink.style.backgroundColor = '#2a7f62';
       cartLink.style.color = '#fff';
       cartLink.style.padding = '10px 14px';
       cartLink.style.borderRadius = '6px';
       cartLink.style.fontWeight = '600';
       cartLink.style.fontSize = '13px';
+      cartLink.style.display = 'inline-block';
+      cartLink.style.lineHeight = '1.3';
     } else {
-      cartLink.innerHTML = '🛒 My Cart';
+      cartLink.textContent = '🛒 My Cart';
       cartLink.style.backgroundColor = '';
       cartLink.style.color = '';
       cartLink.style.padding = '';
       cartLink.style.borderRadius = '';
       cartLink.style.fontWeight = '';
       cartLink.style.fontSize = '';
+      cartLink.style.display = '';
+      cartLink.style.lineHeight = '';
     }
   }
 }
