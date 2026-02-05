@@ -66,28 +66,15 @@ renderList('wishlist','wishlist','Your wishlist is empty.');
 renderList('orderHistory','orderHistory','You have no past orders.');
 
 // Add address / payment buttons just create prompt entries for now
-// Address modal flow
-const addressModal = $('addressModal');
-const addrTextarea = $('addrTextarea');
-const saveAddr = $('saveAddr');
-const cancelAddr = $('cancelAddr');
-let editingAddrIndex = -1;
-
+// Add address fallback (simple prompt) — address modal removed
 $('addAddress').addEventListener('click', ()=>{
-  editingAddrIndex = -1;
-  $('addrModalTitle').textContent = 'Add Address';
-  addrTextarea.value = '';
-  addressModal.hidden = false;
-});
-cancelAddr.addEventListener('click', ()=> addressModal.hidden = true);
-saveAddr.addEventListener('click', ()=>{
-  const a = addrTextarea.value.trim();
-  if(!a){ alert('Please enter an address'); return }
-  const list = JSON.parse(localStorage.getItem('addresses')||'[]');
-  if(editingAddrIndex >= 0) list[editingAddrIndex] = a; else list.push(a);
-  localStorage.setItem('addresses', JSON.stringify(list));
-  renderList('addresses','addresses','No saved addresses yet.');
-  addressModal.hidden = true;
+  const a = prompt('Enter address (multi-line OK)');
+  if(a){
+    const list = JSON.parse(localStorage.getItem('addresses')||'[]');
+    list.push(a);
+    localStorage.setItem('addresses', JSON.stringify(list));
+    renderList('addresses','addresses','No saved addresses yet.');
+  }
 });
 
 // Add payment method fallback (simple prompt) — payment modal removed

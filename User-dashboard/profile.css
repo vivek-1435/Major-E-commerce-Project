@@ -23,15 +23,8 @@ body{background:#f5f5f5;color:#222;margin:0;padding:24px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:800px){.profile-card{flex-direction:column;align-items:flex-start}.two-col{grid-template-columns:1fr}}
 
-/* Modal styles */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;z-index:3000}
-.modal-box{background:#fff;padding:16px;border-radius:10px;max-width:520px;width:90%;box-shadow:0 20px 50px rgba(0,0,0,0.2)}
-.modal-box textarea, .modal-box input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;margin-bottom:10px}
-.modal-actions{display:flex;gap:8px;justify-content:flex-end}
-
+/* small utilities */
 .order-mini{display:flex;gap:12px;align-items:center}
 .order-mini strong{color:#2a7f62}
-
-/* small utilities */
 .item{padding:8px 0;border-bottom:1px solid #f3f3f3}
 .muted{color:#888;font-size:13px;margin-left:8px}
