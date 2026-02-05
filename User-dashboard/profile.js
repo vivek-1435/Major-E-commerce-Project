@@ -90,31 +90,15 @@ saveAddr.addEventListener('click', ()=>{
   addressModal.hidden = true;
 });
 
-// Payment modal flow
-const paymentModal = $('paymentModal');
-const payTitle = $('payTitle');
-const paySubtitle = $('paySubtitle');
-const savePay = $('savePay');
-const cancelPay = $('cancelPay');
-let editingPayIndex = -1;
-
+// Add payment method fallback (simple prompt) — payment modal removed
 $('addPayment').addEventListener('click', ()=>{
-  editingPayIndex = -1;
-  $('payModalTitle').textContent = 'Add Payment Method';
-  payTitle.value = '';
-  paySubtitle.value = '';
-  paymentModal.hidden = false;
-});
-cancelPay.addEventListener('click', ()=> paymentModal.hidden = true);
-savePay.addEventListener('click', ()=>{
-  const t = payTitle.value.trim();
-  const s = paySubtitle.value.trim();
-  if(!t){ alert('Please add a title'); return }
-  const list = JSON.parse(localStorage.getItem('payments')||'[]');
-  list.push({ title: t, subtitle: s });
-  localStorage.setItem('payments', JSON.stringify(list));
-  renderList('payments','payments','No payment methods saved.');
-  paymentModal.hidden = true;
+  const p = prompt('Enter payment method name (e.g. Visa ****1234)');
+  if(p){
+    const list = JSON.parse(localStorage.getItem('payments')||'[]');
+    list.push(p);
+    localStorage.setItem('payments', JSON.stringify(list));
+    renderList('payments','payments','No payment methods saved.');
+  }
 });
 
 $('contactSupport').addEventListener('click', ()=>{
