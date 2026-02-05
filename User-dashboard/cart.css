@@ -119,3 +119,16 @@
 }
 
 .primary:hover { background: #0a6f1a; }
+
+/* Finish button in summary - match primary style */
+#finishBtn {
+  background: #0c831f;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#finishBtn:hover { background: #0a6f1a; }
