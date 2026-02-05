@@ -96,3 +96,26 @@
 .checkout-actions { display:flex; justify-content:flex-end; }
 .checkout-actions button { background:#0c831f; color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer }
 #orderSummary { max-height: 300px; overflow:auto; padding:8px; border:1px solid #eee; border-radius:6px; }
+
+/* Cart summary layout and checkout button */
+.cart-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.cart-summary h3 { margin: 0; }
+
+.primary {
+  background: #0c831f;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.primary:hover { background: #0a6f1a; }
