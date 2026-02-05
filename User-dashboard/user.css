@@ -510,3 +510,29 @@ a[href="cart.html"] {
   color: white;
   border-color: transparent;
 }
+
+/* Small button used on wishlist page */
+.small-btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 160ms ease, transform 120ms ease, box-shadow 160ms ease;
+}
+.small-btn.primary {
+  background: linear-gradient(90deg,#2a7f62,#1f5f47);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(42,127,98,0.18);
+}
+.small-btn.ghost {
+  background: #fff;
+  color: #333;
+  border-color: #e8e8e8;
+}
+.small-btn:hover { transform: translateY(-2px); }
+.small-btn.ghost:hover { background: #fbfbfb; }
