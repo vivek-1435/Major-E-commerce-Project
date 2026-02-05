@@ -467,3 +467,25 @@ a[href="cart.html"] {
   margin-left: 4px;
   vertical-align: middle;
 }
+
+/* Toast notifications */
+.toast-wrap {
+  position: fixed;
+  right: 18px;
+  bottom: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  min-width: 180px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  font-size: 14px;
+}
+.toast.success { background: linear-gradient(90deg,#2a7f62,#1f5f47); }
+.toast.info { background: rgba(0,0,0,0.8); }

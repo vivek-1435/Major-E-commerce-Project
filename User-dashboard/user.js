@@ -206,6 +206,8 @@ function addToCart(product) {
   const activeBtn = document.querySelector('.category.active');
   const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
   render(activeCat === 'all' ? products : products.filter(p => p.category === activeCat));
+  // show a small toast to confirm
+  try { showToast && showToast(`${product.name} added to cart`); } catch(e){}
 }
 
 function removeFromProduct(productId) {
@@ -225,6 +227,7 @@ function removeFromProduct(productId) {
   const activeBtn = document.querySelector('.category.active');
   const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
   render(activeCat === 'all' ? products : products.filter(p => p.category === activeCat));
+  try { showToast && showToast(`Cart updated`); } catch(e){}
 }
 
 function updateCartDisplay() {
@@ -272,12 +275,14 @@ function updateCartDisplay() {
 }
 
 /* ================= CATEGORY FILTER ================= */
+// Category filter - persist selected category in localStorage
 document.querySelectorAll(".category").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelector(".category.active")?.classList.remove("active");
     btn.classList.add("active");
 
     const cat = btn.dataset.category;
+    localStorage.setItem('selectedCategory', cat);
     render(cat === "all" ? products : products.filter(p => p.category === cat));
   });
 });
@@ -325,8 +330,32 @@ document.addEventListener("click", () => {
 });
 
 /* ================= INIT ================= */
-// initial render should respect any active category (if present)
-const activeBtn = document.querySelector('.category.active');
-const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
-render(activeCat === 'all' ? products : products.filter(p => p.category === activeCat));
+// initial render should respect persisted category (if present)
+const persistedCat = localStorage.getItem('selectedCategory');
+if (persistedCat) {
+  // ensure the correct button has the active class
+  document.querySelectorAll('.category').forEach(b => {
+    if (b.dataset.category === persistedCat) b.classList.add('active');
+    else b.classList.remove('active');
+  });
+}
+const initActiveBtn = document.querySelector('.category.active');
+const initActiveCat = initActiveBtn ? initActiveBtn.dataset.category : (persistedCat || 'all');
+render(initActiveCat === 'all' ? products : products.filter(p => p.category === initActiveCat));
+
+// Small toast utility used across the page
+function showToast(message, type = 'success', timeout = 2600) {
+  let wrap = document.querySelector('.toast-wrap');
+  if (!wrap) {
+    wrap = document.createElement('div');
+    wrap.className = 'toast-wrap';
+    document.body.appendChild(wrap);
+  }
+  const t = document.createElement('div');
+  t.className = 'toast ' + (type || 'info');
+  t.textContent = message;
+  wrap.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(6px)'; }, timeout - 300);
+  setTimeout(() => t.remove(), timeout);
+}
 
