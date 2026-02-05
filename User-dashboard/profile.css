@@ -19,7 +19,12 @@ body{background:#f6faf6;color:#222;margin:0;padding:28px}
 .profile-actions{margin-top:8px}
 .btn-primary{background:var(--farmly);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-weight:700}
 .btn-primary:hover{background:var(--farmly-dark)}
-.btn-ghost{background:transparent;border:1px solid #e6e6e6;padding:10px 16px;border-radius:10px;cursor:pointer;margin-left:10px}
+/* Filled ghost -> soft neutral fill */
+.btn-ghost{background:#f6faf6;border:1px solid #e6efe8;padding:10px 16px;border-radius:10px;cursor:pointer;margin-left:10px;color:#2a7f62;font-weight:600}
+.btn-ghost:hover{background:#eef7ee}
+/* Secondary buttons get a light filled style */
+.btn-secondary{background:#eaf7ef;border:1px solid #d6f0dd;padding:8px 12px;border-radius:8px;cursor:pointer;color:var(--farmly);font-weight:700}
+.btn-secondary:hover{background:#dff2e6}
 
 .panels{display:flex;flex-direction:column;gap:16px;margin-top:12px}
 .panel{background:#fff;padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(28,44,28,0.04)}

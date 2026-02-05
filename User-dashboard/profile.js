@@ -106,7 +106,7 @@ if(lastOrder){
     <div class="order-mini">
       <div><strong>Order ${lastOrder.orderId}</strong></div>
       <div>Amount: ₹${lastOrder.total}</div>
-      <div><a href="track-order.html">Track</a></div>
+      <div></div>
     </div>
   `;
 }
