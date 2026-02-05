@@ -190,12 +190,8 @@ function showSummary(method) {
       renderCart();
       closeCheckout();
 
-      // show success overlay then navigate to order page
+      // show success overlay popup
       showSuccessOverlay();
-      setTimeout(() => {
-        // navigate to a dedicated order success page
-        window.location.href = 'order-success.html';
-      }, 1200);
   };
 
     // show success overlay with simple animation then hide
@@ -209,6 +205,10 @@ function showSummary(method) {
       setTimeout(() => {
         overlay.setAttribute('aria-hidden', 'true');
       }, 2400);
+      // also allow click to dismiss
+      overlay.addEventListener('click', () => {
+        overlay.setAttribute('aria-hidden', 'true');
+      }, { once: true });
     }
 }
 
