@@ -167,8 +167,16 @@ const grid = document.querySelector(".product-grid");
 function render(list = products) {
   if (!grid) return;
   grid.innerHTML = "";
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   list.forEach(p => {
+    const cartItem = cart.find(i => i.id === p.id);
+    const qty = cartItem ? cartItem.qty : 0;
+    
+    const buttonHTML = qty > 0 
+      ? `<div class="qty-control"><button class="qty-btn" onclick='removeFromProduct(${p.id})'>−</button><span class="qty-display">${qty}</span><button class="qty-btn" onclick='addToCart(${JSON.stringify(p)})'>+</button></div>`
+      : `<button class="add-btn" onclick='addToCart(${JSON.stringify(p)})'>ADD</button>`;
+
     grid.innerHTML += `
       <div class="product-card">
         <img src="${p.img}">
@@ -176,11 +184,13 @@ function render(list = products) {
         <div class="delivery-time">⏱ ${p.time}</div>
         <div class="card-footer">
           <p class="price">₹${p.price}</p>
-          <button class="add-btn" onclick='addToCart(${JSON.stringify(p)})'>ADD</button>
+          ${buttonHTML}
         </div>
       </div>
     `;
   });
+  
+  updateCartDisplay();
 }
 
 /* ================= CART ================= */
@@ -192,6 +202,38 @@ function addToCart(product) {
   else cart.push({ ...product, qty: 1 });
 
   localStorage.setItem("cart", JSON.stringify(cart));
+  render();
+}
+
+function removeFromProduct(productId) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const item = cart.find(i => i.id === productId);
+  
+  if (item) {
+    if (item.qty > 1) {
+      item.qty--;
+    } else {
+      cart = cart.filter(i => i.id !== productId);
+    }
+  }
+  
+  localStorage.setItem("cart", JSON.stringify(cart));
+  render();
+}
+
+function updateCartDisplay() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
+  const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+  
+  const cartLinks = document.querySelectorAll('a[href="cart.html"], button[onclick*="cart.html"]');
+  cartLinks.forEach(link => {
+    if (totalItems > 0) {
+      link.innerHTML = `🛒 My Cart <span class="cart-badge">${totalItems}</span><br><span class="cart-price">₹${totalPrice}</span>`;
+    } else {
+      link.innerHTML = '🛒 My Cart';
+    }
+  });
 }
 
 /* ================= CATEGORY FILTER ================= */

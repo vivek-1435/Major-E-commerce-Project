@@ -351,14 +351,53 @@
   background: #2a7f62;
   color: white;
   border: none;
-  padding: 6px 14px;
+  padding: 8px 14px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  transition: background 200ms;
 }
 
 .add-btn:hover {
-  background: #256c54;
+  background: #1f5f47;
+}
+
+/* Quantity control when item is in cart */
+.qty-control {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  background: #e8f5e9;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.qty-btn {
+  background: #2a7f62;
+  color: white;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 200ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-btn:hover {
+  background: #1f5f47;
+}
+
+.qty-display {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+  color: #2a7f62;
+  font-size: 14px;
 }
 /* suggestion dropdown in searchbar */
 .search-wrapper {
@@ -388,4 +427,28 @@
 
 .suggestion:hover {
   background: #f5f5f5;
+}
+
+/* Cart badge and styling */
+.cart-badge {
+  display: inline-block;
+  background: #2a7f62;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.cart-price {
+  display: block;
+  font-size: 12px;
+  color: #2a7f62;
+  font-weight: 600;
+  margin-top: 2px;
 }
