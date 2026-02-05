@@ -168,11 +168,14 @@ function render(list = products) {
   if (!grid) return;
   grid.innerHTML = "";
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
   list.forEach(p => {
     const cartItem = cart.find(i => i.id === p.id);
     const qty = cartItem ? cartItem.qty : 0;
     
+    const inWishlist = wishlist.find(i => i.id === p.id);
+    const wishHTML = `<button class="wish-btn ${inWishlist ? 'wish-filled' : ''}" onclick="toggleWishlist(${p.id})">${inWishlist ? '♥' : '♡'}</button>`;
     const buttonHTML = qty > 0 
       ? `<div class="qty-control"><button class="qty-btn" onclick='removeFromProduct(${p.id})'>−</button><span class="qty-display">${qty}</span><button class="qty-btn" onclick='addToCart(${JSON.stringify(p)})'>+</button></div>`
       : `<button class="add-btn" onclick='addToCart(${JSON.stringify(p)})'>ADD</button>`;
@@ -184,13 +187,49 @@ function render(list = products) {
         <div class="delivery-time">⏱ ${p.time}</div>
         <div class="card-footer">
           <p class="price">₹${p.price}</p>
-          ${buttonHTML}
+          <div style="display:flex;align-items:center;gap:8px">
+            ${wishHTML}
+            ${buttonHTML}
+          </div>
         </div>
       </div>
     `;
   });
   
   updateCartDisplay();
+}
+
+/* ============== WISHLIST HELPERS ============== */
+function getWishlist() {
+  return JSON.parse(localStorage.getItem('wishlist')) || [];
+}
+
+function saveWishlist(list) {
+  localStorage.setItem('wishlist', JSON.stringify(list));
+}
+
+function isInWishlist(id) {
+  return getWishlist().some(i => i.id === id);
+}
+
+function toggleWishlist(id) {
+  let wl = getWishlist();
+  const exists = wl.find(i => i.id === id);
+  if (exists) {
+    wl = wl.filter(i => i.id !== id);
+    saveWishlist(wl);
+    try { showToast && showToast('Removed from wishlist', 'info'); } catch(e){}
+  } else {
+    const p = products.find(pp => pp.id === id);
+    if (!p) return;
+    wl.push(p);
+    saveWishlist(wl);
+    try { showToast && showToast('Added to wishlist', 'success'); } catch(e){}
+  }
+  // re-render current view to update heart state
+  const activeBtn = document.querySelector('.category.active');
+  const activeCat = activeBtn ? activeBtn.dataset.category : 'all';
+  render(activeCat === 'all' ? products : products.filter(p => p.category === activeCat));
 }
 
 /* ================= CART ================= */

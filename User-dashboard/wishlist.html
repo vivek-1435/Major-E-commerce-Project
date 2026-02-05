@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Wishlist</title>
+  <link rel="stylesheet" href="user.css">
+  <style>
+    .wishlist-page { max-width:1100px; margin:40px auto; padding:20px; }
+    .wishlist-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px }
+    .wishlist-grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:20px }
+    .empty { text-align:center; padding:40px; color:#666 }
+    .wish-actions { display:flex; gap:8px; margin-top:8px }
+    .small-btn { padding:8px 12px; border-radius:8px; border:none; cursor:pointer }
+    .small-btn.primary { background:#2a7f62; color:#fff }
+    .small-btn.ghost { background:#f5f5f5 }
+  </style>
+</head>
+<body>
+  <div class="wishlist-page">
+    <div class="wishlist-header">
+      <h1>My Wishlist</h1>
+      <div>
+        <a href="user.html" class="small-btn ghost">Browse Products</a>
+      </div>
+    </div>
+
+    <div id="wishlistContainer"></div>
+  </div>
+
+  <script src="wishlist.js"></script>
+</body>
+</html>
