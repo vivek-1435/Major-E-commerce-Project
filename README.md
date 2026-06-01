@@ -20,8 +20,21 @@ Farmly is a highly responsive, modern client-side E-Commerce platform tailored f
 
 ## 📂 Project Structure
 
-. ├── index.html # Root entrypoint (auto-redirects to Login page) ├── README.md # Documentation ├── .nojekyll # Config for GitHub Pages / static deployments └── User-dashboard/ ├── login.html / .css / .js # Portal with multi-role support ├── user.html / .css / .js # Customer storefront and product catalog ├── cart.html / .css / .js # Shopping cart list, checkout, and receipt success screen ├── wishlist.html / .js # Bookmarked items interface ├── profile.html / .css / .js # User profile settings, saved addresses, and payment methods ├── track-order.html # Order tracking progress timeline └── order-success.html # Basic success overlay page
----
+```text
+.
+├── index.html                    # Root entrypoint (auto-redirects to Login page)
+├── README.md                     # Documentation
+├── .nojekyll                     # Config for GitHub Pages / static deployments
+└── User-dashboard/
+    ├── login.html / .css / .js   # Portal with multi-role support
+    ├── user.html / .css / .js    # Customer storefront and product catalog
+    ├── cart.html / .css / .js    # Shopping cart list, checkout, and receipt success screen
+    ├── wishlist.html / .js       # Bookmarked items interface
+    ├── profile.html / .css / .js # User profile settings, saved addresses, and payment methods
+    ├── track-order.html          # Order tracking progress timeline
+    └── order-success.html        # Basic success overlay page
+```
+
 
 ## 🛠️ Technology Stack & Architecture
 
